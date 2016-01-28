@@ -23,12 +23,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelega
     
     
     @IBAction func searchButtonTouched(sender: AnyObject) {
-        
-        DataManager.sharedManager().getShoppingItemWithName(self.searchTextField.text, completed: { (returnedItem: ShoppingItem!, error: NSError!) in Void()
-            if let newItems = returnedItem {
-                self.items = [newItems]
+        DataManager.sharedManager().getShoppingItemWithName(self.searchTextField.text, completed: { (returnedItems: [ShoppingItem]!, error: NSError!) in Void()
+                self.items = returnedItems
                 self.tableView.reloadData()
-            }
             })
     }
 
@@ -79,8 +76,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelega
         if(txtAfterUpdate == ""){
             reloadTable()
         }
-        DataManager.sharedManager().getShoppingItemWithName(txtAfterUpdate as String, completed:{ (returnedItem, error) -> Void in
-            self.items = [returnedItem]
+        DataManager.sharedManager().getShoppingItemWithName(txtAfterUpdate as String, completed:{ (returnedItems, error) -> Void in
+            self.items = returnedItems
             self.tableView.reloadData()
         }
         )

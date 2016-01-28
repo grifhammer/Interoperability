@@ -15,7 +15,7 @@
                              description:(NSString *)desc category:(NSString *)category price:
 (NSNumber *)number;
 - (void) getShoppingItemWithName:(NSString *)name completed:(void
-                                                             (^)(ShoppingItem *item, NSError *error))completionBlock;
+                                                             (^)(NSArray<ShoppingItem*> *item, NSError *error))completionBlock;
 - (void) getShoppingListWithCompletionBlock:(void (^)(NSArray
                                                       *items, NSError *error)) completionBlock;
 @end

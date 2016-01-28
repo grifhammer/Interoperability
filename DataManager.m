@@ -50,11 +50,11 @@
     }
     return item;
 }
-- (void) getShoppingItemWithName:(NSString *)name completed:(void(^)(ShoppingItem *item, NSError *error))completionBlock {
+- (void) getShoppingItemWithName:(NSString *)name completed:(void(^)(NSArray<ShoppingItem*> *items, NSError *error))completionBlock {
     NSFetchRequest *request = [[NSFetchRequest
                                 alloc]initWithEntityName:@"ShoppingItem"];
     NSPredicate *predicate = [NSPredicate
-                              predicateWithFormat:@"itemName = %@", name];
+                              predicateWithFormat:@"itemName CONTAINS[c] %@", name];
     request.predicate = predicate;
     NSError *error;
     NSArray *results = [self.context executeFetchRequest:request
@@ -68,7 +68,7 @@
     }
     else {
         if (results.count > 0 && completionBlock) {
-            completionBlock(results[0], nil);
+            completionBlock(results, nil);
         }
     } }
 - (void) getShoppingListWithCompletionBlock:(void (^)(NSArray *items, NSError *error)) completionBlock {
