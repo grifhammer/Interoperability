@@ -8,16 +8,34 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchTextField: UITextField!
     
     var items : [ShoppingItem] = [ShoppingItem]()
     
+    @IBAction func populateButtonTouched(sender: AnyObject) {
+        DataManager.sharedManager().populate()
+        reloadTable()
+    }
+    
+    
+    
+    @IBAction func searchButtonTouched(sender: AnyObject) {
+        
+        DataManager.sharedManager().getShoppingItemWithName(self.searchTextField.text, completed: { (returnedItem: ShoppingItem!, error: NSError!) in Void()
+            if let newItems = returnedItem {
+                self.items = [newItems]
+                self.tableView.reloadData()
+            }
+            })
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        searchTextField.delegate = self
         reloadTable()
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -33,7 +51,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         let item = self.items[indexPath.row]
         
-        cell.textLabel?.text = "\(item.itemName) - \(item.itemDescription!)"
+        cell.textLabel?.text = "\(item.itemName!) - \(item.itemDescription!)"
         
         return cell
     }
@@ -53,6 +71,20 @@ class ViewController: UIViewController, UITableViewDataSource {
                 }
             }
         })
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        var txtAfterUpdate:NSString = self.searchTextField.text! as NSString
+        txtAfterUpdate = txtAfterUpdate.stringByReplacingCharactersInRange(range, withString: string)
+        if(txtAfterUpdate == ""){
+            reloadTable()
+        }
+        DataManager.sharedManager().getShoppingItemWithName(txtAfterUpdate as String, completed:{ (returnedItem, error) -> Void in
+            self.items = [returnedItem]
+            self.tableView.reloadData()
+        }
+        )
+        return true
     }
 
 

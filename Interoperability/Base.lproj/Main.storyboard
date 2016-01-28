@@ -21,10 +21,16 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j3H-7U-EPx">
                                 <rect key="frame" x="519" y="20" width="61" height="30"/>
                                 <state key="normal" title="Populate"/>
+                                <connections>
+                                    <action selector="populateButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LJB-NT-EqE"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Z0-HN-Dvz">
                                 <rect key="frame" x="170" y="570" width="48" height="30"/>
                                 <state key="normal" title="Search"/>
+                                <connections>
+                                    <action selector="searchButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lK9-ni-e73"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BKX-JO-g8p">
                                 <rect key="frame" x="20" y="570" width="150" height="30"/>
@@ -33,6 +39,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="searchTextFieldWasEdited:" destination="BYZ-38-t0r" eventType="valueChanged" id="yQ1-Cg-9Ie"/>
+                                </connections>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zdw-zh-5Ej">
                                 <rect key="frame" x="20" y="60" width="560" height="500"/>
