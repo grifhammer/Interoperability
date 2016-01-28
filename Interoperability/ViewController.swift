@@ -44,13 +44,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelega
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell()
+        
         
         let item = self.items[indexPath.row]
         
-        cell.textLabel?.text = "\(item.itemName!) - \(item.itemDescription!)"
-        
-        return cell
+        if let cell = tableView.dequeueReusableCellWithIdentifier("shoppingItemCellReuseID") as? ShoppingItemTableViewCell {
+            cell.quantityLabel.text = "\(item.quantity!)"
+            cell.itemNameLabel.text = item.itemName!
+            cell.categoryLabel.text = "\(item.category!)"
+            return cell
+        }
+        return ShoppingItemTableViewCell()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
